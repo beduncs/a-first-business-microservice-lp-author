@@ -37,6 +37,7 @@ jobs:
     
     - name: microservice
       run: |
+        source /home/runner/.bashrc
         cargo build --target wasm32-wasip1 --release
         wasmedgec target/wasm32-wasip1/release/sales_tax_rate_lookup.wasm sales_tax_rate_lookup.wasm
         nohup wasmedge sales_tax_rate_lookup.wasm &
