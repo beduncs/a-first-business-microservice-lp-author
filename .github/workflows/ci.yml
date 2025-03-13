@@ -33,13 +33,12 @@ jobs:
         
     - name: Install WasmEdge
       run: |
-        VERSION=0.11.2
-        curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | sudo bash -s -- -e all --version=$VERSION -p /usr/local
+        curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash
     
     - name: microservice
       run: |
         cargo build --target wasm32-wasip1 --release
-        wasmedgec target/wasm32-wasip1/release/sales_tax_rate_lookup.wasm sales_tax_rate_lookup.wasm
+        wasmedge target/wasm32-wasip1/release/sales_tax_rate_lookup.wasm sales_tax_rate_lookup.wasm
         nohup wasmedge sales_tax_rate_lookup.wasm &
         echo $! > wasmedge.pid
         sleep 15
